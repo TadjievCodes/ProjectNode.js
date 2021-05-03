@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>NodeSQLInsert with Insert or Request</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        // ***************************************************
+        //BTN functions with a callback
+        function postInsert() {
+            $.post("/api/data", {
+                // this is the data being posted to the web server
+                op: "Add",
+                fName: document.getElementById("firstName").value,
+                lName: document.getElementById("lastName").value,
+                address: document.getElementById("address").value,
+                city: document.getElementById("city").value,
+                province: document.getElementById("province").value,
+                postalCode: document.getElementById("postalCode").value
+            },
+                // callback function returns status and data as object literal
+                function (data, status) {
+                    document.getElementById("CusID").value = data.recordset[0].identity;
+                });
+        }
+
+        function postUpdate() {
+            $.post("/api/data", {
+                cusID: document.getElementById("CusID").value,
+                fName: document.getElementById("firstName").value,
+                lName: document.getElementById("lastName").value,
+                address: document.getElementById("address").value,
+                city: document.getElementById("city").value,
+                province: document.getElementById("province").value,
+                postalCode: document.getElementById("postalCode").value,
+                op: "Update"
+            },
+                function (data, status) {
+                    alert("The record was updated");
+                    document.getElementById("CusID").value = data.recordset[0].identity;
+                    document.getElementById("firstName").value = data.recordset[0].FirstName;
+                    document.getElementById("lastName").value = data.recordset[0].LastName;
+                    document.getElementById("address").value = data.recordset[0].Address;
+                    document.getElementById("city").value = data.recordset[0].City;
+                    document.getElementById("province").value = data.recordset[0].Province;
+                    document.getElementById("postalCode").value = data.recordset[0].PostalCode;
+
+                });
+        }
+
+        function postSelect() {
+            $.post("/api/data", {
+                // this is the data being posted to the web server
+                cusID: document.getElementById("CusID").value,
+                op: "Find"
+            },
+                // callback function returns status and data as object literal
+                function (data, status) {
+
+                    document.getElementById("firstName").value = data.recordset[0].FirstName;
+                    document.getElementById("lastName").value = data.recordset[0].LastName;
+                    document.getElementById("address").value = data.recordset[0].Address;
+                    document.getElementById("city").value = data.recordset[0].City;
+                    document.getElementById("province").value = data.recordset[0].Province;
+                    document.getElementById("postalCode").value = data.recordset[0].PostalCode;
+
+
+                });
+        }
+
+        function clearFields() {
+            document.getElementById("CusID").value = "";
+            document.getElementById("firstName").value = "";
+            document.getElementById("lastName").value = "";
+            document.getElementById("address").value = "";
+            document.getElementById("city").value = "";
+            document.getElementById("province").value = "";
+            document.getElementById("postalCode").value = "";
+        }
+
+        function postDelete() {
+            $.post("/api/data", {
+                // this is the data being posted to the web server
+                cusID: document.getElementById("CusID").value,
+                op: "Delete"
+            },
+                // callback function returns status and data as object literal
+                function (data, status) {
+                    alert("The record was deleted");
+                    document.getElementById("CusID").value = "";
+                    document.getElementById("firstName").value = "";
+                    document.getElementById("lastName").value = "";
+                    document.getElementById("address").value = "";
+                    document.getElementById("city").value = "";
+                    document.getElementById("province").value = "";
+                    document.getElementById("postalCode").value = "";
+
+                });
+        }
+
+
+    </script>
+</head>
+<body>
+    <form>
+        <div class="form-group" style="margin:10px; width:70%; ">
+            <label for="CusID">Customer ID</label>
+            <input type="text" class="form-control form-control-sm" id="CusID" name="CusID">
+
+
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control form-control-sm" id="firstName" name="firstName">
+
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control form-control-sm" id="lastName" name="lastName">
+
+            <label for="address">Address</label>
+            <input type="text" class="form-control form-control-sm" id="address" name="address">
+
+            <label for="city">City</label>
+            <input type="text" class="form-control form-control-sm" id="city" name="city">
+
+            <label for="province">Province</label>
+            <input type="text" class="form-control form-control-sm" id="province" name="province">
+
+            <label for="postalCode">Postal Code</label>
+            <input type="text" class="form-control form-control-sm" id="postalCode" name="postalCode"><br />
+
+
+            <input id="btnNew" class="btn btn-primary" type="button" onclick="clearFields();" value="New" />
+            <input id="btnAdd" class="btn btn-primary" type="button" onclick="postInsert();" value="Add" />
+            <input id="btnUpdate" class="btn btn-primary" type="button" onclick="postUpdate();" value="Update" />
+            <input id="btnDelete" class="btn btn-primary" type="button" onclick="postDelete();" value="Delete" />
+            <input id="btnSelect" class="btn btn-primary" type="button" onclick="postSelect();" value="Find" />
+        </div>
+     </form>
+    <div id="outputStuff"></div>
+</body>
+</html>

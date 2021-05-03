@@ -1,0 +1,4 @@
+C:\Users\Bob\Desktop\JavaScript\Project 2\Olha_Project2\Olha_Project2\obj\Debug\Olha_Project2.njsprojAssemblyReference.cache
+C:\Users\Bob\Desktop\JavaScript\Project 2\Olha_Project2\Olha_Project2\bin\Microsoft.NodejsTools.WebRole.dll
+E:\all data\Fanshawe Study_Important\Semester 3\JavaScript\Project 2\Olha_Project2\Olha_Project2\obj\Debug\Olha_Project2.njsprojAssemblyReference.cache
+E:\all data\Fanshawe Study_Important\Semester 3\JavaScript\Project 2\Olha_Project2\Olha_Project2\bin\Microsoft.NodejsTools.WebRole.dll
